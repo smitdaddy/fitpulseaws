@@ -2,6 +2,7 @@ import FoodLog from "../models/FoodLog.js";
 import { estimateNutrition } from "../services/geminiNutritionService.js";
 import { uploadToS3 } from "../services/s3Service.js";
 import fs from "fs";
+import { sendToQueue } from "../services/sqsService.js";
 
 // @desc    Estimate food nutrition with Gemini
 // @route   POST /api/food-log/analyze
@@ -88,13 +89,22 @@ export const addFoodLog = async (req, res) => {
 
     console.log("✅ Saved to DB:", log);
 
+    // 🔥 ADD THIS HERE (IMPORTANT)
+    await sendToQueue({
+      logId: log._id,
+      imageUrl: log.imageUrl,
+      userId: req.user._id,
+    });
+
+    console.log("📨 Sent to SQS queue");
+
     res.status(201).json(log);
+
   } catch (error) {
     console.error("❌ Add FoodLog Error:", error);
     res.status(400).json({ message: error.message });
   }
 };
-
 // @desc    Get today's food logs
 export const getTodayLogs = async (req, res) => {
   try {
