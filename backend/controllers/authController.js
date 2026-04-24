@@ -1,7 +1,7 @@
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import { OAuth2Client } from "google-auth-library";
-
+import { sendNotification } from "../services/snsService.js";
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "7d",
@@ -58,11 +58,19 @@ export const loginUser = async (req, res) => {
 
     const token = generateToken(user._id);
 
+    // 🔥 SNS Notification (ADD THIS)
+    await sendNotification(
+      `User logged in: ${user.email}`,
+      "Login Alert"
+    );
+
     res.status(200).json({
       user,
       token,
     });
+
   } catch (error) {
+    console.error("Login Error:", error);
     res.status(500).json({ message: error.message });
   }
 };

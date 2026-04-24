@@ -1,4 +1,5 @@
 import Medication from "../models/Medication.js";
+import { sendNotification } from "../services/snsService.js";
 
 // @desc    Get all active medications for user
 // @route   GET /api/medications
@@ -33,8 +34,15 @@ export const addMedication = async (req, res) => {
       endDate,
     });
 
+    // 🔥 SNS Notification (ADD THIS)
+    await sendNotification(
+      `New medication added: ${medicineName} at ${time}`,
+      "Medication Reminder"
+    );
+
     res.status(201).json(med);
   } catch (error) {
+    console.error("Add Medication Error:", error);
     res.status(400).json({ message: error.message });
   }
 };
@@ -55,13 +63,18 @@ export const toggleMedicationStatus = async (req, res) => {
     }
 
     // Toggle logic: If the date is already in the array, remove it. If not, add it.
-    const index = med.takenDates.indexOf(date);
-    if (index === -1) {
-      med.takenDates.push(date);
-    } else {
-      med.takenDates.splice(index, 1);
-    }
+  if (index === -1) {
+  med.takenDates.push(date);
 
+  // 🔥 Notify when taken
+  await sendNotification(
+    `Medication taken: ${med.medicineName} on ${date}`,
+    "Medication Update"
+  );
+
+} else {
+  med.takenDates.splice(index, 1);
+}
     await med.save();
     res.json(med);
   } catch (error) {
