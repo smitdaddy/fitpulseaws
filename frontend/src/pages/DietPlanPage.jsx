@@ -89,9 +89,9 @@ function DietPlanPage() {
         const headers = { Authorization: `Bearer ${token}` };
 
         const [planRes, profileRes, logsRes] = await Promise.all([
-          fetch('/api/diet', { headers }),
-          fetch('/api/health-profile', { headers }),
-          fetch('/api/food-log/today', { headers }),
+          fetch('https://d36bbfu262j7b7.cloudfront.net/api/diet', { headers }),
+          fetch('https://d36bbfu262j7b7.cloudfront.net/api/health-profile', { headers }),
+          fetch('https://d36bbfu262j7b7.cloudfront.net/api/food-log/today', { headers }),
         ]);
 
         if (planRes.ok)    setPlan(await planRes.json());
@@ -120,7 +120,7 @@ function DietPlanPage() {
     setGenerating(true);
     setError('');
     try {
-      const res = await fetch('/api/diet/generate', {
+      const res = await fetch('https://d36bbfu262j7b7.cloudfront.net/api/diet/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       });

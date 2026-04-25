@@ -24,7 +24,7 @@ function SignUpPage() {
     setGoogleLoading(true);
 
     try {
-      const res = await fetch("/api/auth/google", {
+      const res = await fetch("https://d36bbfu262j7b7.cloudfront.net/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ credential: response.credential }),
@@ -93,7 +93,7 @@ function SignUpPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://13.206.109.35:8000/api/auth/register", {
+      const res = await fetch("https://d36bbfu262j7b7.cloudfront.net/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -26,7 +26,7 @@ function SettingsPage() {
     const loadData = async () => {
       try {
         if (token) {
-          const profileRes = await fetch('http://13.206.109.35:8000/api/auth/profile', {
+          const profileRes = await fetch('https://d36bbfu262j7b7.cloudfront.net/api/auth/profile', {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (profileRes.ok) {
@@ -36,7 +36,7 @@ function SettingsPage() {
             setUser(baseUser);
           }
 
-          const healthRes = await fetch('/api/health-profile', {
+          const healthRes = await fetch('https://d36bbfu262j7b7.cloudfront.net/api/health-profile', {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (healthRes.ok) {
@@ -143,7 +143,7 @@ function SettingsPage() {
         gender: formState.gender || undefined,
       };
 
-      const res = await fetch('http://13.206.109.35:8000/api/auth/profile', {
+      const res = await fetch('https://d36bbfu262j7b7.cloudfront.net/api/auth/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ function SettingsPage() {
           : [],
       };
 
-      const res = await fetch('/api/health-profile', {
+      const res = await fetch('https://d36bbfu262j7b7.cloudfront.net/api/health-profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://13.206.109.35:8000",
+        target: "https://d36bbfu262j7b7.cloudfront.net",
         changeOrigin: true,
         secure: false,
       },

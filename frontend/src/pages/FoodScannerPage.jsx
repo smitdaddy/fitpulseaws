@@ -5,6 +5,8 @@ import Sidebar from "../components/Sidebar";
 const sampleImage =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuALd3pG3joW-cnYe0kVEM53C6msYapTj41QD-au_ESZZw0gIcD7S0nUfUzltoDOuCKcnIrYhgXAuQsTR4ePKf45lQR_zHqq4FLL1HwZAiszoimYAHRvIRaXT9l7jWP6UO5tjH016Z6bdLpqQrGhlgysVVTRZQ4SdiBsqUX-YOWdq6SK9Kc3nhuXeCDBPqylxcw6EIyJ_Hq39lrxQOOfAQyVzcg_6wa2CYFBCeD6XrfgZ0ZKx16_3cH42OIAYOqKySMTl2sPfnBXPkJJ";
 
+const API_URL = "https://d36bbfu262j7b7.cloudfront.net";
+
 const MEAL_TYPES = [
   {
     value: "breakfast",
@@ -121,7 +123,7 @@ function FoodScannerPage() {
     const token = getToken();
     if (!token) return;
     try {
-      const res = await fetch("/api/food-log/today", {
+      const res = await fetch(`${API_URL}/api/food-log/today`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) setRecentScans(await res.json());
@@ -167,7 +169,7 @@ function FoodScannerPage() {
       if (foodName.trim()) formData.append("foodName", foodName.trim());
       if (selectedImage) formData.append("image", selectedImage);
 
-      const res = await fetch("/api/food-log/analyze", {
+      const res = await fetch(`${API_URL}/api/food-log/analyze`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -202,7 +204,7 @@ function FoodScannerPage() {
       if (mealType) formData.append("mealType", mealType);
       if (selectedImage) formData.append("image", selectedImage);
 
-      const res = await fetch("/api/food-log", {
+      const res = await fetch(`${API_URL}/api/food-log`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

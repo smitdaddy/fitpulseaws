@@ -28,10 +28,10 @@ function HealthAnalyticsPage() {
     }
 
     try {
-      const todayRes = await fetch("/api/food-log/today", {
+      const todayRes = await fetch("https://d36bbfu262j7b7.cloudfront.net/api/food-log/today", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const weeklyRes = await fetch("/api/food-log/weekly", {
+      const weeklyRes = await fetch("https://d36bbfu262j7b7.cloudfront.net/api/food-log/weekly", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -63,7 +63,7 @@ function HealthAnalyticsPage() {
     e.preventDefault();
     const token = localStorage.getItem("fitpulse_token");
     try {
-      const res = await fetch("/api/food-log", {
+      const res = await fetch("https://d36bbfu262j7b7.cloudfront.net/api/food-log", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -19,7 +19,7 @@ function SignInPage() {
     setGoogleLoading(true);
 
     try {
-      const res = await fetch("/api/auth/google", {
+      const res = await fetch("https://d36bbfu262j7b7.cloudfront.net/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ credential: response.credential }),
@@ -86,7 +86,7 @@ function SignInPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://13.206.109.35:8000/api/auth/login", {
+      const res = await fetch("https://d36bbfu262j7b7.cloudfront.net/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

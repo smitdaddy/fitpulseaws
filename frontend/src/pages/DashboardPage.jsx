@@ -40,21 +40,21 @@ function DashboardPage() {
         const headers = { Authorization: `Bearer ${token}` };
 
         // Fetch User and Profile
-        const userRes = await fetch("http://13.206.109.35:8000/api/auth/profile", { headers });
+        const userRes = await fetch("https://d36bbfu262j7b7.cloudfront.net/api/auth/profile", { headers });
         if (userRes.ok) setUser(await userRes.json());
         else {
           navigate("/signin");
           return;
         }
 
-        const profileRes = await fetch("/api/health-profile", { headers });
+        const profileRes = await fetch("https://d36bbfu262j7b7.cloudfront.net/api/health-profile", { headers });
         if (profileRes.ok) setHealthProfile(await profileRes.json());
 
         // Parallel Fetch Dashboard Data
         const [logsRes, dietRes, medsRes] = await Promise.all([
-          fetch("/api/food-log/today", { headers }),
-          fetch("/api/diet", { headers }),
-          fetch("/api/medications", { headers }),
+          fetch("https://d36bbfu262j7b7.cloudfront.net/api/food-log/today", { headers }),
+          fetch("https://d36bbfu262j7b7.cloudfront.net/api/diet", { headers }),
+          fetch("https://d36bbfu262j7b7.cloudfront.net/api/medications", { headers }),
         ]);
 
         if (logsRes.ok) setTodayLogs(await logsRes.json());
@@ -73,7 +73,7 @@ function DashboardPage() {
   const handleToggleMed = async (id) => {
     const token = localStorage.getItem("fitpulse_token");
     try {
-      const res = await fetch(`/api/medications/${id}/toggle`, {
+      const res = await fetch(`https://d36bbfu262j7b7.cloudfront.net/api/medications/${id}/toggle`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

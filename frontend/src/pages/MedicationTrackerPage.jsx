@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 
+const API_URL = "https://d36bbfu262j7b7.cloudfront.net";
+
 function MedicationTrackerPage() {
   const navigate = useNavigate();
   const [medications, setMedications] = useState([]);
@@ -35,7 +37,7 @@ function MedicationTrackerPage() {
     }
 
     try {
-      const res = await fetch("/api/medications", {
+      const res = await fetch(`${API_URL}/api/medications`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,7 +61,7 @@ function MedicationTrackerPage() {
   const handleToggleTaken = async (id) => {
     const token = localStorage.getItem("fitpulse_token");
     try {
-      const res = await fetch(`/api/medications/${id}/toggle`, {
+      const res = await fetch(`${API_URL}/api/medications/${id}/toggle`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +83,7 @@ function MedicationTrackerPage() {
     e.preventDefault();
     const token = localStorage.getItem("fitpulse_token");
     try {
-      const res = await fetch("/api/medications", {
+      const res = await fetch(`${API_URL}/api/medications`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +106,7 @@ function MedicationTrackerPage() {
     if (!window.confirm("Delete this medication?")) return;
     const token = localStorage.getItem("fitpulse_token");
     try {
-      await fetch(`/api/medications/${id}`, {
+      await fetch(`${API_URL}/api/medications/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

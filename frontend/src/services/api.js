@@ -2,7 +2,7 @@ import axios from "axios";
 
 // 🔥 Use different URLs based on environment
 const API_BASE_URL = import.meta.env.MODE === 'production'
-  ? 'http://13.206.109.35:8000/api'  // Your EC2 backend URL (production)
+  ? 'https://d36bbfu262j7b7.cloudfront.net/api'  // Your EC2 backend URL (production)
   : 'http://localhost:8000/api';      // Local backend (development)
 
 const API = axios.create({

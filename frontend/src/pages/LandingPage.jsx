@@ -18,7 +18,7 @@ function LandingPage() {
     // Prefer live profile, fall back to stored user
     const fetchProfile = async () => {
       try {
-        const res = await fetch("http://13.206.109.35:8000/api/auth/profile", {
+        const res = await fetch("https://d36bbfu262j7b7.cloudfront.net/api/auth/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
