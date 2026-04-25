@@ -26,7 +26,7 @@ function SettingsPage() {
     const loadData = async () => {
       try {
         if (token) {
-          const profileRes = await fetch('/api/auth/profile', {
+          const profileRes = await fetch('http://13.206.109.35:8000/api/auth/profile', {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (profileRes.ok) {
@@ -143,7 +143,7 @@ function SettingsPage() {
         gender: formState.gender || undefined,
       };
 
-      const res = await fetch('/api/auth/profile', {
+      const res = await fetch('http://13.206.109.35:8000/api/auth/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

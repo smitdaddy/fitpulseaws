@@ -40,7 +40,7 @@ function DashboardPage() {
         const headers = { Authorization: `Bearer ${token}` };
 
         // Fetch User and Profile
-        const userRes = await fetch("/api/auth/profile", { headers });
+        const userRes = await fetch("http://13.206.109.35:8000/api/auth/profile", { headers });
         if (userRes.ok) setUser(await userRes.json());
         else {
           navigate("/signin");

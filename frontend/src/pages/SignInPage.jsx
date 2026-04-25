@@ -86,23 +86,32 @@ function SignInPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch("http://13.206.109.35:8000/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || "Failed to sign in");
+        throw new Error(data.message || "Login failed");
       }
 
+      console.log("Login success:", data);
+
+      // Save token
       localStorage.setItem("fitpulse_token", data.token);
       localStorage.setItem("fitpulse_user", JSON.stringify(data.user));
-      navigate("/dashboard");
+
+      // redirect
+      window.location.href = "/dashboard";
+
     } catch (err) {
-      setError(err.message);
+      console.error(err);
+      setError(err.message || "Login failed");
     } finally {
       setLoading(false);
     }
