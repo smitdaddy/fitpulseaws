@@ -63,7 +63,9 @@ export const toggleMedicationStatus = async (req, res) => {
     }
 
     // Toggle logic: If the date is already in the array, remove it. If not, add it.
-  if (index === -1) {
+    if (!med.takenDates) med.takenDates = [];
+    const index = med.takenDates.indexOf(date);
+    if (index === -1) {
   med.takenDates.push(date);
 
   // 🔥 Notify when taken
@@ -78,6 +80,7 @@ export const toggleMedicationStatus = async (req, res) => {
     await med.save();
     res.json(med);
   } catch (error) {
+    console.error("Toggle Medication Error:", error);
     res.status(400).json({ message: error.message });
   }
 };
